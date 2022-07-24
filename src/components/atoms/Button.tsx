@@ -1,9 +1,8 @@
 type Props = {
   text: string;
 };
-const a: string = 'リンゴ';
 const Button = (props: Props) => {
-  return <button>{a}</button>;
+  return <button>{props.text}</button>;
 };
 
 export default Button;
