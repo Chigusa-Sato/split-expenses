@@ -27,12 +27,6 @@ const Login = () => {
       <Button text="SIGNUP" onClick={() => signUpFunc()} />
       <Input value={value} onInput={(event) => setValue(event.target.value)} />
       {value}
-      {/* <div>
-        新規登録は<Link to={`/register/`}>こちら</Link>
-      </div>
-      <div>
-        <Link to={`/`}>ホームに戻る</Link>
-      </div> */}
     </>
   );
 };
