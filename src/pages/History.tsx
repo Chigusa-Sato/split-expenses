@@ -8,6 +8,7 @@ import { useState } from 'react';
 // };
 //-------------------------------
 
+//todo:型定義
 let paymentList = [
   {
     id: 1,
@@ -38,7 +39,7 @@ const Register = () => {
   const toggleOpenList = (index: number) => {
     //@ts-ignore
     state_toggleOpenList(
-    //   @ts-ignore
+      //   @ts-ignore
       state_paymentList.map((list, mapIndex) =>
         index === mapIndex ? { ...list, isOpen: !list.isOpen } : list
       )
