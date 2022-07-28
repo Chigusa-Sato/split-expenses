@@ -2,10 +2,10 @@ import AcordionButton from '../components/atoms/AcordionButton';
 import { useState } from 'react';
 
 //useState練習------------------
-const TestState = (): any => {
-  const [count, setCount] = useState(0);
-  return <div onClick={() => setCount(count + 1)}>{count}</div>;
-};
+// const TestState = (): any => {
+//   const [count, setCount] = useState(0);
+//   return <div onClick={() => setCount(count + 1)}>{count}</div>;
+// };
 //-------------------------------
 
 let paymentList = [
@@ -38,7 +38,7 @@ const Register = () => {
   const toggleOpenList = (index: number) => {
     //@ts-ignore
     state_toggleOpenList(
-      //@ts-ignore
+    //   @ts-ignore
       state_paymentList.map((list, mapIndex) =>
         index === mapIndex ? { ...list, isOpen: !list.isOpen } : list
       )
@@ -107,7 +107,7 @@ const Register = () => {
             );
           })}
         </div>
-        <TestState />
+        {/* <TestState /> */}
       </div>
     </>
   );
