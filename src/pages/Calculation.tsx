@@ -1,5 +1,5 @@
 import Input from '../components/atoms/Input';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 type paymentType = { id: number; price: number; seller: string };
 
@@ -15,12 +15,12 @@ const Calculation = () => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
   //各金額の入力------
-  const setPriceValue = (priceValue: string, itemId: number): void => {
+  const setPriceValue = (priceVal: string, itemId: number): void => {
+    const formattedPriceVal = priceVal.replace(/^0+/, '');
     const newPaymentList = paymentList.map((item) =>
-      item.id === itemId
-        ? { ...item, price: Number(priceValue.replace(/^0+/, '')) }
-        : item
+      item.id === itemId ? { ...item, price: Number(formattedPriceVal) } : item
     );
+    console.log(newPaymentList);
     setPaymentList([...newPaymentList]);
     calcTotalPrice([...newPaymentList]);
   };
@@ -50,6 +50,11 @@ const Calculation = () => {
     );
     setTotalPrice(newTotalPrice);
   };
+  //useEffectにてマウント後に実行したい処理を記載
+  useEffect(() => {
+    console.log('mounted');
+    setTotalPrice(paymentList.reduce((sum, item) => sum + item.price, 0));
+  }, []);
   return (
     <>
       <div>
