@@ -25,7 +25,7 @@ const Login = () => {
       <h1>ログイン/新規登録</h1>
       <Button text="LOGIN" onClick={() => loginFunc()} />
       <Button text="SIGNUP" onClick={() => signUpFunc()} />
-      <Input value={value} onInput={(event) => setValue(event.target.value)} />
+      <Input value={value} type={"text"} onChange={(event) => setValue(event.target.value)} />
       {value}
     </>
   );

@@ -35,12 +35,12 @@ let paymentList = [
 ];
 
 const Register = () => {
-  const [state_paymentList, state_toggleOpenList] = useState(paymentList);
+  const [statePaymentList, setStateaymentList] = useState(paymentList);
   const toggleOpenList = (index: number) => {
     //@ts-ignore
-    state_toggleOpenList(
+    setStateaymentList(
       //   @ts-ignore
-      state_paymentList.map((list, mapIndex) =>
+      statePaymentList.map((list, mapIndex) =>
         index === mapIndex ? { ...list, isOpen: !list.isOpen } : list
       )
     );
@@ -57,7 +57,7 @@ const Register = () => {
           style={{ border: '1px solid #DBE7FF' }}
         />
         <div>
-          {state_paymentList.map((item, index) => {
+          {statePaymentList.map((item, index) => {
             return (
               <ol
                 key={item.id}
