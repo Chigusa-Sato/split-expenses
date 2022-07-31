@@ -1,8 +1,11 @@
 import Input from '../components/atoms/Input';
 import { useState } from 'react';
 
-type paymentListType = { id: number; price: number; seller: string };
-let initialPaymentList: paymentListType[] = [
+//type定義---------------------
+type paymentType = { id: number; price: number; seller: string };
+//-----------------------------
+
+let initialPaymentList: paymentType[] = [
   { id: 1, price: 500, seller: 'ココカラファイン' },
   { id: 2, price: 100, seller: 'べじはん' },
 ];
@@ -10,22 +13,19 @@ let initialPaymentList: paymentListType[] = [
 const Calculation = () => {
   //入力情報を一括で持つ配列オブジェクト
   const [paymentList, setPaymentList] =
-    useState<paymentListType[]>(initialPaymentList);
+    useState<paymentType[]>(initialPaymentList);
 
-  //@ts-ignore
-  const setPriceValue = (priceValue: string, itemId: number) => {
+  const setPriceValue = (priceValue: string, itemId: number): void => {
     setPaymentList(
-      //@ts-ignore
       paymentList.map((item) =>
         item.id === itemId
-          ? { ...item, price: priceValue.replace(/^0+/, '') }
+          ? { ...item, price: Number(priceValue.replace(/^0+/, '')) }
           : item
       )
     );
   };
 
-  //@ts-ignore
-  const setSellerValue = (sellerValue: string, itemId: number) => {
+  const setSellerValue = (sellerValue: string, itemId: number): void => {
     setPaymentList(
       paymentList.map((item) =>
         item.id === itemId ? { ...item, seller: sellerValue } : item
@@ -37,7 +37,7 @@ const Calculation = () => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
 
   //入力欄の追加
-  const addInputField = () => {
+  const addInputField = (): void => {
     setPaymentList([
       ...paymentList,
       { id: paymentList.length + 1, price: 0, seller: '' },
