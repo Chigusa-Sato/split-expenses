@@ -1,9 +1,7 @@
 import Input from '../components/atoms/Input';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-//type定義---------------------
 type paymentType = { id: number; price: number; seller: string };
-//-----------------------------
 
 let initialPaymentList: paymentType[] = [
   { id: 1, price: 500, seller: 'ココカラファイン' },
@@ -11,20 +9,32 @@ let initialPaymentList: paymentType[] = [
 ];
 
 const Calculation = () => {
-  //入力情報を一括で持つ配列オブジェクト
+  //state一括定義----
   const [paymentList, setPaymentList] =
     useState<paymentType[]>(initialPaymentList);
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+  //boolean型のstateを作成
+  const [update, setUpdata] = useState<boolean>(false);
 
-  const setPriceValue = (priceValue: string, itemId: number): void => {
-    setPaymentList(
-      paymentList.map((item) =>
-        item.id === itemId
-          ? { ...item, price: Number(priceValue.replace(/^0+/, '')) }
-          : item
-      )
-    );
+  //各金額の入力------
+  const setPriceValue = (priceVal: string, itemId: number): void => {
+    let pettern = /^([1-9]\d*|0)$/;
+    //@ts-ignore
+    if (pettern.test(Number(priceVal))) {
+      const formattedPriceVal: number = Number(priceVal.replace(/^0+/, ''));
+
+      const newPaymentList = paymentList.map((item) =>
+        item.id === itemId ? { ...item, price: formattedPriceVal } : { ...item }
+      );
+      setPaymentList([...newPaymentList]);
+      calcTotalPrice([...newPaymentList]);
+    }
+
+    //レンダリングしたい場所でこれを差し込むだけ
+    setUpdata(update ? false : true);
   };
 
+  //各購入先の入力-----
   const setSellerValue = (sellerValue: string, itemId: number): void => {
     setPaymentList(
       paymentList.map((item) =>
@@ -33,10 +43,7 @@ const Calculation = () => {
     );
   };
 
-  //合計金額表示:支払金額更新毎に合わせて合計値も更新
-  const [totalPrice, setTotalPrice] = useState<number>(0);
-
-  //入力欄の追加
+  //入力欄の追加-----
   const addInputField = (): void => {
     setPaymentList([
       ...paymentList,
@@ -44,25 +51,45 @@ const Calculation = () => {
     ]);
   };
 
+  //増減額の計算-----
+  const calcTotalPrice = (newPaymentList: paymentType[]): void => {
+    const newTotalPrice = newPaymentList.reduce(
+      (sum, item) => sum + item.price,
+      0
+    );
+    setTotalPrice(newTotalPrice);
+  };
+  //useEffectにてマウント後に実行したい処理を記載
+  useEffect(() => {
+    console.log('mounted');
+    setTotalPrice(paymentList.reduce((sum, item) => sum + item.price, 0));
+  }, []);
   return (
     <>
-      {paymentList.map((item, index) => {
-        return (
-          <div key={index}>
-            <Input
-              type={'number'}
-              value={item.price}
-              onChange={(event) => setPriceValue(event.target.value, item.id)}
-            />
-            <Input
-              type={'text'}
-              value={item.seller}
-              onChange={(event) => setSellerValue(event.target.value, item.id)}
-            />
-          </div>
-        );
-      })}
-      <span onClick={() => addInputField()}>+</span>
+      <div>
+        {paymentList.map((item, index) => {
+          return (
+            <div key={index}>
+              <Input
+                type={'text'}
+                value={item.price}
+                onChange={(event) => setPriceValue(event.target.value, item.id)}
+              />
+              <Input
+                type={'text'}
+                value={item.seller}
+                onChange={(event) =>
+                  setSellerValue(event.target.value, item.id)
+                }
+              />
+            </div>
+          );
+        })}
+        <span onClick={() => addInputField()}>+</span>
+      </div>
+      <div>
+        <p>今回の増減額:{totalPrice}</p>
+      </div>
     </>
   );
 };
