@@ -13,16 +13,25 @@ const Calculation = () => {
   const [paymentList, setPaymentList] =
     useState<paymentType[]>(initialPaymentList);
   const [totalPrice, setTotalPrice] = useState<number>(0);
+  //boolean型のstateを作成
+  const [update, setUpdata] = useState<boolean>(false);
 
   //各金額の入力------
   const setPriceValue = (priceVal: string, itemId: number): void => {
-    const formattedPriceVal = priceVal.replace(/^0+/, '');
-    const newPaymentList = paymentList.map((item) =>
-      item.id === itemId ? { ...item, price: Number(formattedPriceVal) } : item
-    );
-    console.log(newPaymentList);
-    setPaymentList([...newPaymentList]);
-    calcTotalPrice([...newPaymentList]);
+    let pettern = /^([1-9]\d*|0)$/;
+    //@ts-ignore
+    if (pettern.test(Number(priceVal))) {
+      const formattedPriceVal: number = Number(priceVal.replace(/^0+/, ''));
+
+      const newPaymentList = paymentList.map((item) =>
+        item.id === itemId ? { ...item, price: formattedPriceVal } : { ...item }
+      );
+      setPaymentList([...newPaymentList]);
+      calcTotalPrice([...newPaymentList]);
+    }
+
+    //レンダリングしたい場所でこれを差し込むだけ
+    setUpdata(update ? false : true);
   };
 
   //各購入先の入力-----
@@ -62,7 +71,7 @@ const Calculation = () => {
           return (
             <div key={index}>
               <Input
-                type={'number'}
+                type={'text'}
                 value={item.price}
                 onChange={(event) => setPriceValue(event.target.value, item.id)}
               />
