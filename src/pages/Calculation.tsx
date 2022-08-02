@@ -1,6 +1,6 @@
 import Input from '../components/atoms/Input';
 import { useState, useEffect } from 'react';
-
+import Button from '../components/atoms/Button';
 type paymentType = { id: number; price: number; seller: string };
 
 let initialPaymentList: paymentType[] = [
@@ -59,6 +59,10 @@ const Calculation = () => {
     );
     setTotalPrice(newTotalPrice);
   };
+  //
+  const addTotalPriceToCurrentMonth = () => {
+    console.log('金額加算');
+  };
   //useEffectにてマウント後に実行したい処理を記載
   useEffect(() => {
     console.log('mounted');
@@ -90,6 +94,7 @@ const Calculation = () => {
       <div>
         <p>今回の増減額:{totalPrice}</p>
       </div>
+      <Button text="確定" onClick={() => addTotalPriceToCurrentMonth()} />
     </>
   );
 };
