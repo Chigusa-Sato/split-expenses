@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
+import DashBoard from './pages/DashBoard';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import History from './pages/History';
@@ -17,7 +18,8 @@ const App = () => {
           <Route path={`/register/`} element={<Register />} />
           <Route path={`/login/`} element={<Login />} />
           <Route path={`/history/`} element={<History />} />
-          <Route path={`/calculation/`} element={<Calculation />} />
+          <Route path={`/calculation/`} element={<Calculation />} />{' '}
+          <Route path={`/dashBoard/`} element={<DashBoard />} />
         </Routes>
       </div>
     </BrowserRouter>
