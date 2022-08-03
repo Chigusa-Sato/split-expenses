@@ -1,6 +1,7 @@
 import Input from '../components/atoms/Input';
 import { useState, useEffect } from 'react';
 import Button from '../components/atoms/Button';
+import Modal from '../components/organisms/Modal';
 type paymentType = { id: number; price: number; seller: string };
 
 let initialPaymentList: paymentType[] = [
@@ -13,6 +14,9 @@ const Calculation = () => {
   const [paymentList, setPaymentList] =
     useState<paymentType[]>(initialPaymentList);
   const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [modalName, setModalName] = useState<string>('');
+  const [showldShowModal, setShowldShowModal] = useState<boolean>(false);
+
   //boolean型のstateを作成
   const [update, setUpdata] = useState<boolean>(false);
 
@@ -94,7 +98,24 @@ const Calculation = () => {
       <div>
         <p>今回の増減額:{totalPrice}</p>
       </div>
-      <Button text="確定" onClick={() => addTotalPriceToCurrentMonth()} />
+      <Button
+        text="確定"
+        onClick={() => {
+          addTotalPriceToCurrentMonth();
+          setModalName('modal_confirmTotalPrice');
+          setShowldShowModal(true);
+        }}
+      />
+      <Modal
+        showldShow={showldShowModal}
+        modalTitle="金額確認"
+        modalName={modalName}
+        totalPrice={totalPrice}
+        hideModal={() => {
+          setModalName('');
+          setShowldShowModal(false);
+        }}
+      />
     </>
   );
 };
