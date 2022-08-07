@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Button from '../components/atoms/Button';
 
 const DashBoard = (props: any) => {
-  const [ totalPayment, setTotalPayment] = useState<number>(0)
+  const [totalPayment, setTotalPayment] = useState<number>(0);
   const navigate = useNavigate();
   //日付計算---------
   const today = new Date();
@@ -22,7 +22,7 @@ const DashBoard = (props: any) => {
   // };
 
   //-------------------
-
+  //-------
   const executeClosing = () => {
     const confirm = window.confirm('月締めを実行しても宜しいでしょうか');
     if (confirm) {
