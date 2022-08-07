@@ -6,6 +6,7 @@ type Props = {
   showldShow: boolean;
   hideModal?: () => void;
   totalPrice?: number;
+  initialTotalPrice?: number;
 };
 
 const Modal = (props: Props) => {
@@ -14,8 +15,7 @@ const Modal = (props: Props) => {
       {props.showldShow ? (
         <div
           style={{
-            background: 'black',
-            opacity: '70%',
+            background: 'rgba(0, 0, 0, 0.6)',
             width: '100vw',
             height: '100vh',
             zIndex: '1',
@@ -39,13 +39,14 @@ const Modal = (props: Props) => {
                 display: 'flex',
                 justifyContent: 'space-between',
                 width: '100%',
-                background: '#223a70',
+                background: '#29304b',
               }}
             >
               <p
                 style={{
                   fontWeight: 'bold',
                   display: 'inline-block',
+                  color: 'white',
                 }}
               >
                 {props.modalTitle}
@@ -57,12 +58,11 @@ const Modal = (props: Props) => {
                 ✖
               </span>
             </div>
-            {props.totalPrice}
-
             {/* 表示内容を出し分ける */}
             {props.modalName === 'modal_confirmTotalPrice' ? (
               <ComfirmTotalPrice
                 totalPrice={props.totalPrice}
+                initialTotalPrice={props.initialTotalPrice}
               ></ComfirmTotalPrice>
             ) : (
               <></>

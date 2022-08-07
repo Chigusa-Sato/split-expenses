@@ -68,8 +68,8 @@ const Calculation = () => {
     console.log('金額加算');
   };
   //useEffectにてマウント後に実行したい処理を記載
+  const initialTotalPrice = 100;
   useEffect(() => {
-    console.log('mounted');
     setTotalPrice(paymentList.reduce((sum, item) => sum + item.price, 0));
   }, []);
   return (
@@ -95,11 +95,9 @@ const Calculation = () => {
         })}
         <span onClick={() => addInputField()}>+</span>
       </div>
-      <div>
-        <p>今回の増減額:{totalPrice}</p>
-      </div>
+      <div></div>
       <Button
-        text="確定"
+        text="確認"
         onClick={() => {
           addTotalPriceToCurrentMonth();
           setModalName('modal_confirmTotalPrice');
@@ -111,6 +109,7 @@ const Calculation = () => {
         modalTitle="金額確認"
         modalName={modalName}
         totalPrice={totalPrice}
+        initialTotalPrice={initialTotalPrice}
         hideModal={() => {
           setModalName('');
           setShowldShowModal(false);
