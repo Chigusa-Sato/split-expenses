@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import History from './pages/History';
 import Header from './layouts/Header';
 import Calculation from './pages/Calculation';
+import Counter from './components/SampleRedux';
 import './App.css';
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
           <Route path={`/history/`} element={<History />} />
           <Route path={`/calculation/`} element={<Calculation />} />{' '}
           <Route path={`/dashBoard/`} element={<DashBoard />} />
+          <Route path={`/counter/`} element={<Counter />} />
         </Routes>
       </div>
     </BrowserRouter>

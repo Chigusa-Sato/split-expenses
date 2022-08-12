@@ -27,6 +27,9 @@ const Header = () => {
           <li>
             <Link to="/history">History</Link>
           </li>
+          <li>
+            <Link to="/counter">Counter</Link>
+          </li>
         </ul>
       </div>
     </>
