@@ -1,4 +1,3 @@
-import React, { Compoent } from 'react';
 import { connect } from 'react-redux';
 
 import { countPlus, countMinus } from '../actions';
@@ -12,7 +11,7 @@ const Counter = (props) => {
     </>
   );
 };
-
+//TODO:reduxに定義したstateはsetStateしなくてもリアクティブになる仕組みなのか？検証する
 const mapStateToProps = (state) => ({
   val: state.counter.val,
 });
