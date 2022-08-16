@@ -2,6 +2,9 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Button from '../components/atoms/Button';
+//ストア
+import { connect } from 'react-redux';
+import { price } from '../actions/price';
 
 const DashBoard = (props: any) => {
   const [totalPayment, setTotalPayment] = useState<number>(0);
@@ -48,7 +51,7 @@ const DashBoard = (props: any) => {
           }}
         >
           {formatDate} <br /> 今月のまさへの支払い金額 <br />
-          2000円
+          {props.val}円
         </div>
         <Button
           text="金額を入力する"
@@ -58,5 +61,11 @@ const DashBoard = (props: any) => {
     </>
   );
 };
+const mapStateToProps = (state: any) => ({
+  val: state.price.val,
+});
 
-export default DashBoard;
+const mapDispatchToProps = (dispatch: any) => ({
+  returnPrice: () => dispatch(price()),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(DashBoard);

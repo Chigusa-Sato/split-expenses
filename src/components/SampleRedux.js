@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-
 import { countPlus, countMinus } from '../actions';
 
 const Counter = (props) => {
